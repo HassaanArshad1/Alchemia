@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../.." />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.ai.navigation@2.0.4" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.ide.rider@3.0.31" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.ide.visualstudio@2.0.22" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.searcher@4.9.2" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.test-framework@1.4.5" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.timeline@1.8.7" />
+    <content url="file://$USER_HOME$/Library/Unity/cache/packages/packages.unity.com/com.unity.visualscripting@1.9.4" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
