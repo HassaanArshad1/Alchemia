@@ -2,8 +2,6 @@ using UnityEngine;
 
 namespace Alchemia.Systems
 {
-    // Stub — Step 8 needs only the energy gate for generation.
-    // Later step fills in coins, energy regen, and persistence.
     public class MetaManager : MonoBehaviour
     {
         [SerializeField] private int energy = 50;

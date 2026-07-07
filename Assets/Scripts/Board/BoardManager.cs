@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Alchemia.Data;
+using Alchemia.Generator;
 using UnityEngine;
 
 namespace Alchemia.Board
@@ -173,6 +175,20 @@ namespace Alchemia.Board
             x = -1;
             y = -1;
             return false;
+        }
+        
+        public bool TryGetEmptyCells(int count, out List<(int x, int y)> emptyCells)
+        {
+            emptyCells = new List<(int x, int y)>(count);
+            for (int j = 0; j < height && emptyCells.Count < count; j++)
+            {
+                for (int i = 0; i < width && emptyCells.Count < count; i++)
+                {
+                    if (cells[i, j].IsEmpty)
+                        emptyCells.Add((i, j));
+                }
+            }
+            return emptyCells.Count >= count;
         }
 
 
