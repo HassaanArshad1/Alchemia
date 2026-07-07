@@ -1,4 +1,5 @@
 using System;
+using Alchemia.Data;
 using UnityEngine;
 
 namespace Alchemia.Board
@@ -16,6 +17,9 @@ namespace Alchemia.Board
         [Tooltip("Distance in world units between adjacent cell centers.")]
         [SerializeField] private float cellSize = 1f;
 
+        [Header("Data")]
+        [SerializeField] private ItemRegistry itemRegistry;
+        
         public int Width => width;
         public int Height => height;
 
@@ -26,6 +30,8 @@ namespace Alchemia.Board
         public event Action<int, int> OnItemRemoved;
 
         public event Action<int, int, int, int> OnItemMoved;
+
+        public event Action<int, int, ItemData> OnItemsMerged;
 
         private void Awake()
         {
@@ -105,12 +111,49 @@ namespace Alchemia.Board
 
             to.SetItem(moving);
             if (displaced.IsValid)
-                from.SetItem(displaced);   // swap
+                from.SetItem(displaced);
             else
-                from.Clear();              // relocate
+                from.Clear(); 
 
             OnItemMoved?.Invoke(fromX, fromY, toX, toY);
             return true;
+        }
+        
+        public bool TryMerge(int fromX, int fromY, int toX, int toY)
+        {
+            if (fromX == toX && fromY == toY) return false;
+            if (!InBounds(fromX, fromY) || !InBounds(toX, toY)) return false;
+
+            Cell fromCell = cells[fromX, fromY];
+            Cell toCell   = cells[toX, toY];
+
+            if (fromCell.IsEmpty || toCell.IsEmpty) return false;
+
+            ItemData a = fromCell.Item;
+            ItemData b = toCell.Item;
+
+            if (a.chainId != b.chainId || a.tier != b.tier) return false;
+            
+            MergeItem current = itemRegistry.GetItem(a.chainId, a.tier);
+            MergeItem next = itemRegistry.GetNextTier(current);
+            if (next == null)
+            {
+                OnMaxTierReached(a);
+                return false;
+            }
+
+            ItemData result = new ItemData(next.ChainId, next.Tier); 
+
+            RemoveItem(fromX, fromY);
+            RemoveItem(toX, toY);
+            PlaceItem(toX, toY, result);
+
+            OnItemsMerged?.Invoke(toX, toY, result);
+            return true;
+        }
+        private void OnMaxTierReached(ItemData item)
+        {
+            // Intentionally empty. Reserved for order-sink logic.
         }
 
         public bool TryGetFirstEmptyCell(out int x, out int y)
@@ -159,5 +202,23 @@ namespace Alchemia.Board
                 }
             }
         }
+
+#if UNITY_EDITOR
+        
+        [ContextMenu("DEBUG: Spawn Two Mergeable Items")]
+        private void DebugSpawnPair()
+        {
+            ItemData brew = new ItemData("potion", 1);   // match your chainId + tier-0
+            ItemData simplePotion = new ItemData("potion", 2);
+            ItemData enhancedPotion = new ItemData("potion", 3);
+            ItemData elixor = new ItemData("potion", 5);
+            PlaceItem(0, 0, brew);
+            PlaceItem(1, 0, brew);
+            PlaceItem(0, 1, simplePotion);
+            PlaceItem(1, 1, enhancedPotion);
+            PlaceItem(0, 2, elixor);
+            PlaceItem(1, 2, elixor);
+        }
+#endif
     }
 }

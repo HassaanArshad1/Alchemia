@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: potion
   tier: 5
   displayName: Philosopher's Draught
-  sprite: {fileID: 0}
+  sprite: {fileID: 3625043607559282579, guid: 40c13b43e97194ccd816bddb7e85dd54, type: 3}

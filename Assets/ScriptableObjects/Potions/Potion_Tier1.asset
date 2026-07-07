@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: potion
   tier: 1
   displayName: Bubbling Brew
-  sprite: {fileID: 0}
+  sprite: {fileID: 7482667652216324306, guid: b6071bccfc9d541fc964e0628670d1b9, type: 3}

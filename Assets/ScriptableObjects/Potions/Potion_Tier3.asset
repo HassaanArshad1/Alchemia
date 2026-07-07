@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: potion
   tier: 3
   displayName: Enchanted Potion
-  sprite: {fileID: 0}
+  sprite: {fileID: -2413806693520163455, guid: 1f9011e0f54914c589b33d57d0be7f30, type: 3}

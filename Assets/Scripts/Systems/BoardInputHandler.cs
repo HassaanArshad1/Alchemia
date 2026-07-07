@@ -73,19 +73,43 @@ namespace Alchemia.Systems
             if (!isDragging) return;
             isDragging = false;
 
-            bool validTarget = TryScreenToGrid(screenPos, out int toX, out int toY);
-            bool isSameCell = validTarget && toX == dragFromX && toY == dragFromY;
+            if (TryScreenToGrid(screenPos, out int toX, out int toY))
+                OnDrop(toX, toY);
+            else
+                boardView.ResyncView(dragFromX, dragFromY);
 
-            if (validTarget && !isSameCell)
+            draggedView = null;
+        }
+        
+        private void OnDrop(int dropX, int dropY)
+        {
+
+            if (!boardManager.InBounds(dropX, dropY) || (dropX == dragFromX && dropY == dragFromY))
             {
-                boardManager.MoveItem(dragFromX, dragFromY, toX, toY);
+                SnapBack(dragFromX, dragFromY);
+                return;
+            }
+
+            if (boardManager.IsEmpty(dropX, dropY))
+            {
+                boardManager.MoveItem(dragFromX, dragFromY, dropX, dropY);
             }
             else
             {
-                boardView.ResyncView(dragFromX, dragFromY);
+                bool merged = boardManager.TryMerge(dragFromX, dragFromY, dropX, dropY);
+                if (!merged) SnapBack(dragFromX, dragFromY);
             }
+        }
 
-            draggedView = null;
+        private void SnapBack(int x, int y)
+        {
+            boardView.ResyncView(x, y);
+            OnMergeRejected();
+        }
+
+        private void OnMergeRejected()
+        {
+            // Reserved for negative haptics.
         }
     }
 }

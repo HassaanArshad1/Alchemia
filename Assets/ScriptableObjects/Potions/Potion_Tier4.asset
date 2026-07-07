@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: potion
   tier: 4
   displayName: Sparkling Elixir
-  sprite: {fileID: 0}
+  sprite: {fileID: -9095717837082945937, guid: 35313804762044277a641bfae69a90a4, type: 3}

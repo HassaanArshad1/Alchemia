@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: potion
   tier: 2
   displayName: Simple Potion
-  sprite: {fileID: 0}
+  sprite: {fileID: 7482667652216324306, guid: 6d6b69a6d72134962bc28eafafcd2105, type: 3}
