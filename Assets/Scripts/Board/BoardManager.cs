@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Alchemia.Board
@@ -19,6 +20,12 @@ namespace Alchemia.Board
         public int Height => height;
 
         private Cell[,] cells;
+
+        public event Action<int, int, ItemData> OnItemPlaced;
+
+        public event Action<int, int> OnItemRemoved;
+
+        public event Action<int, int, int, int> OnItemMoved;
 
         private void Awake()
         {
@@ -55,6 +62,7 @@ namespace Alchemia.Board
             return InBounds(x, y);
         }
 
+
         public Cell GetCell(int x, int y)
         {
             return InBounds(x, y) ? cells[x, y] : null;
@@ -66,13 +74,13 @@ namespace Alchemia.Board
             return c != null && c.IsEmpty;
         }
 
-        
         public bool PlaceItem(int x, int y, ItemData item)
         {
             Cell c = GetCell(x, y);
             if (c == null) return false;
 
             c.SetItem(item);
+            OnItemPlaced?.Invoke(x, y, item);
             return true;
         }
 
@@ -82,9 +90,10 @@ namespace Alchemia.Board
             if (c == null) return false;
 
             c.Clear();
+            OnItemRemoved?.Invoke(x, y);
             return true;
         }
-        
+
         public bool MoveItem(int fromX, int fromY, int toX, int toY)
         {
             Cell from = GetCell(fromX, fromY);
@@ -100,9 +109,10 @@ namespace Alchemia.Board
             else
                 from.Clear();              // relocate
 
+            OnItemMoved?.Invoke(fromX, fromY, toX, toY);
             return true;
         }
-        
+
         public bool TryGetFirstEmptyCell(out int x, out int y)
         {
             for (int j = 0; j < height; j++)
@@ -121,7 +131,8 @@ namespace Alchemia.Board
             y = -1;
             return false;
         }
-        
+
+
         private void OnDrawGizmos()
         {
             Gizmos.color = new Color(1f, 1f, 1f, 0.4f);
