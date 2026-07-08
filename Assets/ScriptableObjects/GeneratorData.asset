@@ -15,6 +15,9 @@ MonoBehaviour:
   generatorId: 1
   possibleChainIds:
   - potion
+  - herb
+  - crystal
+  - bottle
   minSpawnCount: 1
   maxSpawnCount: 3
   secondTierChance: 0.15
