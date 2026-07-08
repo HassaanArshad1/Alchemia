@@ -191,6 +191,24 @@ namespace Alchemia.Board
             return emptyCells.Count >= count;
         }
 
+        public bool TryFindItemOfType(string chainId, int tier, out int x, out int y)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                for (int i = 0; i < width; i++)
+                {
+                    if (!cells[i, j].IsEmpty
+                        && cells[i, j].Item.chainId == chainId
+                        && cells[i, j].Item.tier == tier)
+                    {
+                        x = i; y = j;
+                        return true;
+                    }
+                }
+            }
+            x = -1; y = -1;
+            return false;
+        }
 
         private void OnDrawGizmos()
         {
