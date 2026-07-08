@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: herb
   tier: 4
   displayName: Crate
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 730e4fc5a2fcf4a4c89582626404e7ef, type: 3}

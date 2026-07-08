@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: bottle
   tier: 1
   displayName: Empty Bottle
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: edf2dca4fb949426885c1fea4d13e997, type: 3}

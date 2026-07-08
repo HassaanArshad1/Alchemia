@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: herb
   tier: 3
   displayName: Basket
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: c39f1a3b5953849d9a8589ec743b23c2, type: 3}

@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: crystal
   tier: 1
   displayName: Shard
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 89e665544e43d4030a700542484391b0, type: 3}

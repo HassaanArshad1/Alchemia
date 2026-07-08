@@ -15,4 +15,4 @@ MonoBehaviour:
   chainId: herb
   tier: 2
   displayName: Bundle
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 37810be4220234276951cdf52202280a, type: 3}
